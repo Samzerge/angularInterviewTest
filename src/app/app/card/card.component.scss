@@ -1,0 +1,111 @@
+$custom-card-color: #FFFFFF;
+
+$default-text-color: #252525;
+
+$timer-text-color: #FF4DC1;
+
+$default-button-color-a: #FF78CF;
+$default-button-color-b: #FF18B0;
+$default-button-shadow-color: #B00E78;
+$default-button-text-color: #FFFFFF ;
+
+$ticked-text-color: #00A49C;
+
+$ticked-button-color: #DDE4E4;
+
+.custom-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 0 0 rgba(0,0,0,0.50);
+    border-radius: 4px;
+    min-width: 350px;
+    min-height: 290px;
+    height: 290px;
+}
+
+.custom-card-body {
+    margin: 50px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.base-text {
+    font-family: 'HelveticaNeue-Bold', 'Helvetica';
+    font-size: 35px;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 47px;
+}
+
+.base-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 50px;
+    padding: 10px 40px;
+    min-width: 175px;
+    min-height: 50px;
+    
+}
+
+.base-button p {
+    margin: 0px;
+}
+
+.default-text {
+    color: $default-text-color;
+}
+
+.ticked-text {
+    color: $ticked-text-color;
+}
+
+.timer {
+    color: $timer-text-color;
+    font-size: 30px;
+}
+
+.default-button {
+    background-image: linear-gradient($default-button-color-a, $default-button-color-b);
+    color: $default-button-text-color;
+    box-shadow: 0 2px 0 0 $default-button-shadow-color;
+
+
+    font-family: 'Helvetica-Bold', 'Helvetica';
+    font-size: 22px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 35px;
+    
+}
+
+// .default-button:hover {
+//     background-image: linear-gradient($default-button-color-b, $default-button-color-a);
+// }
+
+.ticked-button {
+    background-color: $ticked-button-color;
+}
+
+
+@media only screen and (min-aspect-ratio: 4/3) {
+    .custom-card {
+        min-width: 600px;
+    }
+    .custom-card-body {
+        max-width: 400px;
+    }
+    .default-text {
+        font-size: 45px;
+        line-height: 50px;
+    }
+    .ticked-text {
+        font-size: 40px;
+        line-height: 47px;
+    }
+}

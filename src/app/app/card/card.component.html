@@ -1,0 +1,28 @@
+<div class="custom-card">
+  <div class="custom-card-body">
+      <p [ngClass]="{
+        'base-text': true,
+        'default-text': cardState === CardState.DEFAULT,
+        'ticked-text': cardState === CardState.TICKED
+      }">{{titleText}}</p>
+
+
+      <ng-container *ngIf="countdownEnabled">
+        <p class="timer">{{countdownDate?.format('mm:ss')}}</p>
+      </ng-container>
+
+      <ng-container *ngIf=" cardState === CardState.DEFAULT;then defaultButton;else tickedButton"></ng-container>
+      <ng-template #defaultButton>
+        <div class="base-button default-button" (click)="click()">
+          <p>{{buttonText}}</p>
+        </div>
+      </ng-template>
+      <ng-template #tickedButton>
+        <div class="base-button ticked-button" (click)="click()">
+          <img src="../../../assets/icon-tick.svg" alt="check icon" />
+        </div>
+      </ng-template>
+
+  </div>
+</div>
+

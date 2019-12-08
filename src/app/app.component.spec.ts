@@ -1,35 +1,60 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
+import { getTestScheduler, cold } from 'jasmine-marbles';
+import { PrizeService } from './app/prize.service';
+import { CardComponent } from './app/card/card.component';
+import { throwError } from 'rxjs';
+
 describe('AppComponent', () => {
+
+  // const prizeServiceStub = {
+  //   get() {
+  //     const prizeData$ = cold('--amount--prize--game--countdown|', {amount: 0, prize: 'Prize', game: 'Game', countdown: 0});
+  //     return prizeData$;
+  //   }
+  // };
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let prizeService: any;
+
   beforeEach(async(() => {
+
+    prizeService = jasmine.createSpy('PrizeService');
+    prizeService.getPrizeData = cold('--amount--prize--game--countdown|', {amount: 50, prize: 'Free Spins', game: 'Gemix', countdown: 25});
+
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent, CardComponent
       ],
+      // providers: [{provde: HttpClient}]
+      // providers: [{provide: PrizeService, useValue: prizeService}]
     }).compileComponents();
+
+
+
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'interview-test-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('interview-test-app');
+  it('should have an app-card', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-card'));
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to interview-test-app!');
-  });
 });
