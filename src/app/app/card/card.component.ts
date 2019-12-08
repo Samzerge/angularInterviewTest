@@ -14,7 +14,6 @@ export class CardComponent implements OnInit {
 
   @Input() cardState: CardState;
   @Input() titleText: string;
-  @Input() countdownEnabled = false;
   @Input() countdownStartSeconds = 0;
   @Input() buttonText: string;
   @Input() buttonIcon: string;
@@ -22,6 +21,7 @@ export class CardComponent implements OnInit {
   @Output() buttonClick: EventEmitter<any> = new EventEmitter();
 
   CardState = CardState;
+  countdownVisible: boolean;
   countdownDate: any;
   countdownInterval: any;
 
@@ -30,31 +30,45 @@ export class CardComponent implements OnInit {
   ngOnInit() {
 
     // this.startDate.milliseconds(0);
-    if (this.countdownEnabled) {
-      this.countdownDate = moment();
 
-      const min = this.countdownStartSeconds / 60;
-      const sec = this.countdownStartSeconds % 60;
-      this.countdownDate.minutes(min);
-      this.countdownDate.seconds(sec);
-
-      this.countdownInterval = setInterval(() => {
-
-        const minutes = parseInt(this.countdownDate.format('mm'), 10);
-        const seconds = parseInt(this.countdownDate.format('ss'), 10);
-
-        if (minutes > 0 || minutes === 0  && seconds > 0) {
-          this.countdownDate.subtract(1, 'seconds');
-        }
-
-        if (minutes <= 0 && seconds <= 0) {
-          clearInterval(this.countdownInterval);
-        }
-
-
-      }, 1000);
+    if (this.countdownEnabled && this.countdownStartSeconds > 0) {
+      this.startCountdown();
     }
 
+  }
+
+  @Input() set countdownEnabled(countdownEnabled) {
+    this.countdownVisible = countdownEnabled;
+    if (countdownEnabled && this.countdownStartSeconds > 0) {
+      this.startCountdown();
+    }
+  }
+
+  startCountdown() {
+
+    this.countdownDate = moment();
+
+    const min = this.countdownStartSeconds / 60;
+    const sec = this.countdownStartSeconds % 60;
+    this.countdownDate.minutes(min);
+    this.countdownDate.seconds(sec);
+
+    this.countdownInterval = setInterval(() => {
+
+      const minutes = parseInt(this.countdownDate.format('mm'), 10);
+      const seconds = parseInt(this.countdownDate.format('ss'), 10);
+
+
+      if (minutes > 0 || minutes === 0  && seconds > 0) {
+        this.countdownDate.subtract(1, 'seconds');
+      }
+
+      if (minutes <= 0 && seconds <= 0) {
+        clearInterval(this.countdownInterval);
+      }
+
+
+    }, 1000);
   }
 
 

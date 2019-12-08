@@ -7,7 +7,7 @@
       }">{{titleText}}</p>
 
 
-      <ng-container *ngIf="countdownEnabled">
+      <ng-container *ngIf="countdownVisible">
         <p class="timer">{{countdownDate?.format('mm:ss')}}</p>
       </ng-container>
 

@@ -39,7 +39,8 @@ export class AppComponent implements OnInit {
       console.log('res');
       console.dir(res);
       this.prizeObj = res;
-     this.updateOnStateChange(CardState.DEFAULT);
+      this.countdownStartSeconds = this.prizeObj.countdown;
+      this.updateOnStateChange(CardState.DEFAULT);
     },
     err => {
      this.updateOnStateChange(CardState.DEFAULT);
@@ -65,6 +66,8 @@ export class AppComponent implements OnInit {
       this.titleText =  'You\'ve ' + this.prizeObj.amount  + ' '  + this.prizeObj.prize + ' to use now';
       this.countdownEnabled = false;
       this.buttonText = '';
+    } else {
+      throw Error('Undefined state');
     }
   }
 }
